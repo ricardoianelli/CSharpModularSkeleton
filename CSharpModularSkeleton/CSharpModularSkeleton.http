@@ -1,0 +1,6 @@
+@CSharpModularSkeleton_HostAddress = http://localhost:5298
+
+GET {{CSharpModularSkeleton_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

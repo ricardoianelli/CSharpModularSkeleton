@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpModularSkeleton", "CSharpModularSkeleton\CSharpModularSkeleton.csproj", "{DA5547BE-F02E-4EED-ABE2-1B26EFBE122B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D92775FF-680C-4201-B6C7-8844909A3E0F}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{2F44F363-F83B-4C6D-989B-D1D1E1A7213D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA5547BE-F02E-4EED-ABE2-1B26EFBE122B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA5547BE-F02E-4EED-ABE2-1B26EFBE122B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA5547BE-F02E-4EED-ABE2-1B26EFBE122B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA5547BE-F02E-4EED-ABE2-1B26EFBE122B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
