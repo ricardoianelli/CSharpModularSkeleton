@@ -27,7 +27,9 @@ public class Program
         app.UseAuthorization();
 
         ModuleDiscovery.Start();
-
+        ModuleDiscovery.InjectDependencies(app.Services);
+        ModuleDiscovery.RegisterEndpoints(app);
+        
         var summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"

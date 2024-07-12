@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
-using Shared;
+using Shared.Api;
 
 namespace CSharpModularSkeleton;
 
-public static class ModuleDiscovery
+internal static class ModuleDiscovery
 {
     private static List<IModuleInitializer> _modules = [];
 
@@ -19,24 +19,20 @@ public static class ModuleDiscovery
         return Task.CompletedTask;
     }
 
-    public static Task InjectDependencies(IServiceCollection services)
+    public static void InjectDependencies(IServiceProvider services)
     {
         foreach (var module in _modules)
         {
             module.InjectDependencies(services);
         }
-
-        return Task.CompletedTask;
     }
 
-    public static Task RegisterEndpoints(RouteGroupBuilder builder)
+    public static void RegisterEndpoints(WebApplication endpointsRegistry)
     {
         foreach (var module in _modules)
         {
-            module.RegisterEndpoints(builder);
+            module.RegisterEndpoints(endpointsRegistry);
         }
-
-        return Task.CompletedTask;
     }
     
     private static void LoadModules()

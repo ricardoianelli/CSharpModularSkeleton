@@ -1,23 +1,19 @@
-﻿using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
-using Shared;
+﻿using Microsoft.AspNetCore.Builder;
+using Shared.Api;
 
 namespace Database.Api;
 
 public class ModuleInitializer : IModuleInitializer
 {
-    public Task Initialize()
+    public void Initialize()
     {
-        return Task.CompletedTask;
     }
 
-    public Task InjectDependencies(IServiceCollection services)
+    public void InjectDependencies(IServiceProvider services)
     {
-        return Task.CompletedTask;
     }
 
-    public Task RegisterEndpoints(RouteGroupBuilder builder)
+    public void RegisterEndpoints(WebApplication endpointsRegistry)
     {
-        return Task.CompletedTask;
     }
 }
