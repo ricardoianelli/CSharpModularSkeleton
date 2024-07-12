@@ -26,6 +26,8 @@ public class Program
 
         app.UseAuthorization();
 
+        ModuleDiscovery.Start();
+
         var summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
