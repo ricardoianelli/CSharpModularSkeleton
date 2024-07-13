@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using Shared.Api;
 
 namespace CSharpModularSkeleton;
@@ -6,7 +7,7 @@ namespace CSharpModularSkeleton;
 internal static class ModuleDiscovery
 {
     private static List<IModuleInitializer> _modules = [];
-
+    
     public static Task Start()
     {
         LoadModules();
@@ -38,15 +39,12 @@ internal static class ModuleDiscovery
     private static void LoadModules()
     {
         List<IModuleInitializer> modules = [];
-        
-        var currentAssembly = Assembly.GetExecutingAssembly();
-        var referencedAssemblies = currentAssembly.GetReferencedAssemblies();
 
-        foreach (var assemblyName in referencedAssemblies)
+        foreach (var assemblyName in Directory.GetFiles(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "*.dll"))
         {
             try
             {
-                var assembly = Assembly.Load(assemblyName);
+                var assembly = Assembly.LoadFrom(assemblyName);
 
                 var moduleTypes = assembly.GetTypes()
                     .Where(t => typeof(IModuleInitializer).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
@@ -55,12 +53,14 @@ internal static class ModuleDiscovery
                 {
                     var module = (IModuleInitializer) Activator.CreateInstance(type);
                     if (module is null) throw new Exception();
+                    
                     modules.Add(module);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Failed to load module {assemblyName.Name}: {ex.Message}");
+                //This actually won't work since it's a web app. I'll have to see how to log this.
+                Trace.WriteLine($"Failed to load module {assemblyName}: {ex.Message}");
             }
         }
 
