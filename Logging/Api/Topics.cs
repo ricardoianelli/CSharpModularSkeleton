@@ -1,6 +1,6 @@
-﻿namespace Database.Api;
+﻿namespace Logging.Api;
 
 public class Topics
 {
-    public const string Add = "Database/add";
+    public const string Log = "logging/log";
 }

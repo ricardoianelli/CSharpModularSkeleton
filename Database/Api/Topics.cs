@@ -2,5 +2,5 @@
 
 public class Topics
 {
-    public const string Add = "Database/add";
+    public const string Add = "database/add";
 }
