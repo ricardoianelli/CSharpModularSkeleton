@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using System.Reflection;
+﻿using System.Reflection;
+using Logging.Api;
 using Shared.Api;
 
 namespace CSharpModularSkeleton;
@@ -7,17 +7,14 @@ namespace CSharpModularSkeleton;
 internal static class ModuleDiscovery
 {
     private static List<IModuleInitializer> _modules = [];
-    
-    public static Task Start()
+
+    public static void Start()
     {
-        LoadModules();
-        
+        AutoDiscoverModules();
         foreach (var module in _modules)
         {
             module.Initialize();
         }
-
-        return Task.CompletedTask;
     }
 
     public static void InjectDependencies(IServiceProvider services)
@@ -35,14 +32,14 @@ internal static class ModuleDiscovery
             module.RegisterEndpoints(endpointsRegistry);
         }
     }
-    
-    private static void LoadModules()
+
+    private static void AutoDiscoverModules()
     {
         List<IModuleInitializer> modules = [];
-
-        foreach (var assemblyName in Directory.GetFiles(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "*.dll"))
+        try
         {
-            try
+            foreach (var assemblyName in Directory.GetFiles(
+                         Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "*.dll"))
             {
                 var assembly = Assembly.LoadFrom(assemblyName);
 
@@ -51,17 +48,16 @@ internal static class ModuleDiscovery
 
                 foreach (var type in moduleTypes)
                 {
-                    var module = (IModuleInitializer) Activator.CreateInstance(type);
-                    if (module is null) throw new Exception();
-                    
+                    var module = (IModuleInitializer)Activator.CreateInstance(type);
+                    if (module is null) throw new Exception($"Error discovering module {type.Assembly.FullName}.");
+
                     modules.Add(module);
                 }
             }
-            catch (Exception ex)
-            {
-                //This actually won't work since it's a web app. I'll have to see how to log this.
-                Trace.WriteLine($"Failed to load module {assemblyName}: {ex.Message}");
-            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Log($"Exception during module discovery: {ex.Message}");
         }
 
         _modules = modules;
