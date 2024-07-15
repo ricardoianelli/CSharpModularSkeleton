@@ -2,7 +2,7 @@
 
 namespace Messaging.Domain;
 
-internal interface IMessageBroker
+public interface IMessageBroker
 {
     Task Connect(ConnectionParams connectionParams);
     Task Disconnect();

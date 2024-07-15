@@ -1,0 +1,22 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  csharp_modular_skeleton:
+    build:
+      context: "C:\\Users\\EFZWJ\\OneDrive - Bayer\\Personal Data\\GitHub\\CSharpModularSkeleton"
+      dockerfile: "CSharpModularSkeleton/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/CSharpModularSkeleton.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "csharpmodularskeleton:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\EFZWJ\\.nuget\\packages:/home/app/.nuget/packages"
+    - "C:\\Users\\EFZWJ\\OneDrive - Bayer\\Personal Data\\GitHub\\CSharpModularSkeleton\\\
+      CSharpModularSkeleton:/app:rw"
+    - "C:\\Users\\EFZWJ\\OneDrive - Bayer\\Personal Data\\GitHub\\CSharpModularSkeleton:/src:rw"
+    working_dir: "/app"

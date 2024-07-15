@@ -5,6 +5,11 @@ namespace Logging.Application;
 
 public class ConsoleLogger : ILogger
 {
+    public Task Initialize()
+    {
+        return Task.CompletedTask;
+    }
+
     public void Log(string msg)
     {
         Console.WriteLine(msg);
@@ -12,12 +17,12 @@ public class ConsoleLogger : ILogger
 
     public void Log(object obj)
     {
-        Console.WriteLine(JsonConvert.SerializeObject(obj));
+        Log(JsonConvert.SerializeObject(obj));
     }
 
     public void Log(Exception ex)
     {
-        Console.WriteLine(JsonConvert.SerializeObject(ex));
+        Log(JsonConvert.SerializeObject(ex));
     }
 
     public async Task LogAsync(string msg)

@@ -1,16 +1,12 @@
 ﻿using Messaging.Application;
 using Messaging.Domain;
+using Microsoft.AspNetCore.Builder;
 
 namespace Messaging.Api;
 
-public static class MessageNotifier
+public abstract class MessageNotifier
 {
     private static IMessageBroker _broker;
-
-    static MessageNotifier()
-    {
-        _broker = new CSharpMessageBroker();
-    }
     
     internal static void SetBroker(IMessageBroker broker)
     {
@@ -37,5 +33,18 @@ public static class MessageNotifier
     public static async Task Subscribe(string topic, Action<Message> handler)
     {
         await _broker.Subscribe(topic, handler);
+    }
+
+    internal static async Task Initialize()
+    {
+        _broker = new CSharpMessageBroker();
+    }
+
+    internal static async Task InjectDependencies(IServiceProvider services)
+    {
+    }
+
+    internal static async Task RegisterEndpoints(WebApplication endpointsRegistry)
+    {
     }
 }

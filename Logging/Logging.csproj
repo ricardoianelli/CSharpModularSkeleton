@@ -22,11 +22,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Api\Endpoints\" />
       <Folder Include="Tests\" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DataStorage\DataStorage.csproj" />
       <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
