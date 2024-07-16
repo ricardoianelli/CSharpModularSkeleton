@@ -3,17 +3,20 @@ using Shared.Api;
 
 namespace Logging.Api;
 
-public class ModuleInitializer : IModuleInitializer
+public abstract class ModuleInitializer : ICoreModule
 {
-    public void Initialize()
+    public static async Task Initialize()
     {
+        await Logger.Initialize();
     }
 
-    public void InjectDependencies(IServiceProvider services)
+    public static async Task InjectDependencies(IServiceProvider services)
     {
+        await Logger.InjectDependencies(services);
     }
 
-    public void RegisterEndpoints(WebApplication endpointsRegistry)
+    public static async Task RegisterEndpoints(WebApplication endpointsRegistry)
     {
+        await Logger.RegisterEndpoints(endpointsRegistry);
     }
 }

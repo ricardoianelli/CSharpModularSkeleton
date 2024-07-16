@@ -1,6 +1,0 @@
-﻿services:
-  csharpmodularskeleton:
-    image: csharpmodularskeleton
-    build:
-      context: .
-      dockerfile: CSharpModularSkeleton/Dockerfile
