@@ -28,7 +28,8 @@ public class DbStoringLogger : ILogger
 
     public async Task LogAsync(string msg)
     {
-        await Database.Api.Database.Execute(Queries.AddLog, new { message = msg });
+        var sqlParams = new Dictionary<string, string> { { "message", msg } };
+        await Database.Api.Database.Execute(Queries.AddLog, sqlParams);
     }
 
     public async Task LogAsync(object obj)

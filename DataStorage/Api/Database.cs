@@ -14,12 +14,12 @@ public abstract class Database
         Db = database;
     }
     
-    public static async Task Execute(string sqlCommand, object? commandParams = null, CancellationToken cancellationToken = default)
+    public static async Task Execute(string sqlCommand, Dictionary<string, string>? commandParams = null, CancellationToken cancellationToken = default)
     {
         await Db.Execute(sqlCommand, commandParams, cancellationToken: cancellationToken);
     }
     
-    public static async Task<T?> Query<T>(string sqlCommand, object? queryParams = null, CancellationToken cancellationToken = default)
+    public static async Task<T?> Query<T>(string sqlCommand, Dictionary<string, string>? queryParams = null, CancellationToken cancellationToken = default)
     {
         return await Db.Query<T>(sqlCommand, queryParams, cancellationToken: cancellationToken);
     }
