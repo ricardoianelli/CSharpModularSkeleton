@@ -1,5 +1,6 @@
 ﻿using Logging.Api;
 using Messaging.Api;
+using Safety.Api;
 
 namespace DangerousMotor.Application;
 
@@ -13,14 +14,16 @@ internal static class Motor
     private static void OnEStopStateChange(Message obj)
     {
         if (obj.Payload is null) return;
+
+        var message = (EStopStateChangedEvent)obj.Payload;
         
-        if ((bool) obj.Payload)
-        {
-            Logger.Log("Motor stopped.");
-        }
-        else
-        {
-            Logger.Log("Motor started.");
-        }
+        // if (message.IsPressed == true)
+        // {
+        //     Logger.Log("Motor stopped.");
+        // }
+        // else
+        // {
+        //     Logger.Log("Motor started.");
+        // }
     }
 }

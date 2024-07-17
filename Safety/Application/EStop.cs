@@ -1,4 +1,5 @@
 ﻿using Messaging.Api;
+using Safety.Api;
 using static System.Security.Cryptography.RandomNumberGenerator;
 using Topics = Safety.Api.Topics;
 
@@ -13,11 +14,11 @@ internal static class EStop
     {
         while (true)
         {
-            // 1% chance of changing E-Stop state every 100ms.
+            // 50% chance of changing E-Stop state every 1000ms.
             if (GetInt32(0, 10) > 5)
             {
                 _isPressed = !_isPressed;
-                await MessageNotifier.Publish(Topics.EStop, _isPressed);
+                await MessageNotifier.Publish(Topics.EStop, new EStopStateChangedEvent(_isPressed));
             }
             
             await Task.Delay(CheckDelayInMs);

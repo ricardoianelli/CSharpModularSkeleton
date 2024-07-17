@@ -67,6 +67,8 @@ internal static class ModuleManager
     {
         _modules.Add(new Safety.Api.ModuleInitializer());
         _modules.Add(new DangerousMotor.Api.ModuleInitializer());
+        _modules.Add(new Counter.Api.ModuleInitializer());
+        _modules.Add(new UI.Api.ModuleInitializer());
     }
 
     private static async Task InjectDependencies(IServiceProvider services)
