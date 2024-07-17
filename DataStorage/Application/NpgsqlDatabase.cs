@@ -42,28 +42,17 @@ public class NpgsqlDatabase : SqlDatabase, IDatabase
         //If it's not null, DB exists, so all good.
         if (result is not null) return;
         
-        var queryParams = new Dictionary<string, string> { { "DbName", dbName } };
+        var queryParams = new Dictionary<string, object> { { "DbName", dbName } };
         InternalExecute(connection, Sql.Queries.CreateDatabase, queryParams).Wait();
     }
 
-    public async Task CreateTable(string sqlCommand, Dictionary<string, string> commandParams, CancellationToken cancellationToken = default)
-    {
-        foreach (var (key, value) in commandParams)
-        {
-            sqlCommand = sqlCommand.Replace($"@{key}", value);
-        }
-        
-        var connection = await CreateConnectionAsync(cancellationToken);
-        await InternalExecute(connection, sqlCommand, commandParams, cancellationToken);
-    }
-
-    public async Task Execute(string sqlCommand, Dictionary<string, string>? commandParams, CancellationToken cancellationToken = default)
+    public async Task Execute(string sqlCommand, Dictionary<string, object>? commandParams, CancellationToken cancellationToken = default)
     {
         var connection = await CreateConnectionAsync(cancellationToken);
         await InternalExecute(connection, sqlCommand, commandParams, cancellationToken);
     }
     
-    public async Task<T?> Query<T>(string sqlCommand, Dictionary<string, string>? queryParams, CancellationToken cancellationToken = default)
+    public async Task<T?> Query<T>(string sqlCommand, Dictionary<string, object>? queryParams, CancellationToken cancellationToken = default)
     {
         var connection = await CreateConnectionAsync(cancellationToken);
         var result = await InternalQuery<T>(connection, sqlCommand, queryParams, cancellationToken);

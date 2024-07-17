@@ -48,10 +48,12 @@ internal static class ModuleManager
         await RegisterEndpoints(app);
     }
     
+    
     private static async Task InitializeModules()
     {
         var tasks = new List<Task>();
-        AutoDiscoverModules();
+        //AutoDiscoverModules();
+        ManuallyRegisterModules();
         
         foreach (var module in _modules)
         {
@@ -59,6 +61,12 @@ internal static class ModuleManager
         }
         
         await Task.WhenAll(tasks);
+    }
+
+    private static void ManuallyRegisterModules()
+    {
+        _modules.Add(new Safety.Api.ModuleInitializer());
+        _modules.Add(new DangerousMotor.Api.ModuleInitializer());
     }
 
     private static async Task InjectDependencies(IServiceProvider services)
@@ -85,6 +93,7 @@ internal static class ModuleManager
         await Task.WhenAll(tasks);
     }
 
+    //I would still have to manually create references, I'll think about this later.
     private static void AutoDiscoverModules()
     {
         List<IModule> modules = [];

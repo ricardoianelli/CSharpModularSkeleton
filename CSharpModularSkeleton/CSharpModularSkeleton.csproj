@@ -14,9 +14,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DangerousMotor\DangerousMotor.csproj" />
       <ProjectReference Include="..\DataStorage\DataStorage.csproj" />
       <ProjectReference Include="..\Logging\Logging.csproj" />
       <ProjectReference Include="..\Messaging\Messaging.csproj" />
+      <ProjectReference Include="..\Safety\Safety.csproj" />
     </ItemGroup>
 
 </Project>
